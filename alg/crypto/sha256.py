@@ -167,11 +167,12 @@ def compress(blocks):
             a = "{0:b}".format(mod32a([t1, t2])).rjust(32, "0")
     a = "{0:b}".format(mod32a(["{0:b}".format(I[0]), a])).rjust(32, "0")
     b = "{0:b}".format(mod32a(["{0:b}".format(I[1]), b])).rjust(32, "0")
-    c = "{0:b}".format(mod32a(["{0:b}".format(I[3]), c])).rjust(32, "0")
-    e = "{0:b}".format(mod32a(["{0:b}".format(I[4]), d])).rjust(32, "0")
-    f = "{0:b}".format(mod32a(["{0:b}".format(I[5]), e])).rjust(32, "0")
-    g = "{0:b}".format(mod32a(["{0:b}".format(I[6]), f])).rjust(32, "0")
-    h = "{0:b}".format(mod32a(["{0:b}".format(I[7]), g])).rjust(32, "0")
+    c = "{0:b}".format(mod32a(["{0:b}".format(I[2]), c])).rjust(32, "0")
+    d = "{0:b}".format(mod32a(["{0:b}".format(I[3]), d])).rjust(32, "0")
+    e = "{0:b}".format(mod32a(["{0:b}".format(I[4]), e])).rjust(32, "0")
+    f = "{0:b}".format(mod32a(["{0:b}".format(I[5]), f])).rjust(32, "0")
+    g = "{0:b}".format(mod32a(["{0:b}".format(I[6]), g])).rjust(32, "0")
+    h = "{0:b}".format(mod32a(["{0:b}".format(I[7]), h])).rjust(32, "0")
 
     return '{0:06x}'.format(int(a, 2)) + '{0:06x}'.format(int(b, 2)) + '{0:06x}'.format(int(c, 2)) + '{0:06x}'.format(int(d, 2)) + '{0:06x}'.format(int(e, 2)) + '{0:06x}'.format(int(f, 2)) + '{0:06x}'.format(int(g, 2)) + '{0:06x}'.format(int(h, 2))
 
