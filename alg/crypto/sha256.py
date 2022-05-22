@@ -18,6 +18,8 @@ compress constant values using message schedule
 concatenate hex of each constant value together to get hash :D
 """
 
+import hashlib
+
 # generate constats, cube roots of the first 64 prime numbers
 K = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
      0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -96,8 +98,10 @@ def preprocess(bstr):
 
     r = (l + 1) - (n * 512)  # remaining
     zeros = 0
+
     if r > 448:
         zeros = 960 - r
+        n += 1
     else:
         zeros = 448 - r
 
@@ -140,17 +144,25 @@ def c_sche(m_block):
 
 
 def compress(blocks):
-    a = "{0:b}".format(I[0]).rjust(32, "0")
-    b = "{0:b}".format(I[1]).rjust(32, "0")
-    c = "{0:b}".format(I[2]).rjust(32, "0")
-    d = "{0:b}".format(I[3]).rjust(32, "0")
-    e = "{0:b}".format(I[4]).rjust(32, "0")
-    f = "{0:b}".format(I[5]).rjust(32, "0")
-    g = "{0:b}".format(I[6]).rjust(32, "0")
-    h = "{0:b}".format(I[7]).rjust(32, "0")
+    ia = "{0:b}".format(I[0]).rjust(32, "0")
+    ib = "{0:b}".format(I[1]).rjust(32, "0")
+    ic = "{0:b}".format(I[2]).rjust(32, "0")
+    id = "{0:b}".format(I[3]).rjust(32, "0")
+    ie = "{0:b}".format(I[4]).rjust(32, "0")
+    iif = "{0:b}".format(I[5]).rjust(32, "0")
+    ig = "{0:b}".format(I[6]).rjust(32, "0")
+    ih = "{0:b}".format(I[7]).rjust(32, "0")
 
     for block in blocks:
         schedule = c_sche(block)
+        a = ia
+        b = ib
+        c = ic
+        d = id
+        e = ie
+        f = iif
+        g = ig
+        h = ih
 
         for i in range(len(schedule)):
             t1 = "{0:b}".format(mod32a([e1(e), Ch(e, f, g),
@@ -165,16 +177,17 @@ def compress(blocks):
             c = b
             b = a
             a = "{0:b}".format(mod32a([t1, t2])).rjust(32, "0")
-    a = "{0:b}".format(mod32a(["{0:b}".format(I[0]), a])).rjust(32, "0")
-    b = "{0:b}".format(mod32a(["{0:b}".format(I[1]), b])).rjust(32, "0")
-    c = "{0:b}".format(mod32a(["{0:b}".format(I[2]), c])).rjust(32, "0")
-    d = "{0:b}".format(mod32a(["{0:b}".format(I[3]), d])).rjust(32, "0")
-    e = "{0:b}".format(mod32a(["{0:b}".format(I[4]), e])).rjust(32, "0")
-    f = "{0:b}".format(mod32a(["{0:b}".format(I[5]), f])).rjust(32, "0")
-    g = "{0:b}".format(mod32a(["{0:b}".format(I[6]), g])).rjust(32, "0")
-    h = "{0:b}".format(mod32a(["{0:b}".format(I[7]), h])).rjust(32, "0")
 
-    return '{0:06x}'.format(int(a, 2)) + '{0:06x}'.format(int(b, 2)) + '{0:06x}'.format(int(c, 2)) + '{0:06x}'.format(int(d, 2)) + '{0:06x}'.format(int(e, 2)) + '{0:06x}'.format(int(f, 2)) + '{0:06x}'.format(int(g, 2)) + '{0:06x}'.format(int(h, 2))
+        ia = "{0:b}".format(mod32a([ia, a])).rjust(32, "0")
+        ib = "{0:b}".format(mod32a([ib, b])).rjust(32, "0")
+        ic = "{0:b}".format(mod32a([ic, c])).rjust(32, "0")
+        id = "{0:b}".format(mod32a([id, d])).rjust(32, "0")
+        ie = "{0:b}".format(mod32a([ie, e])).rjust(32, "0")
+        iif = "{0:b}".format(mod32a([iif, f])).rjust(32, "0")
+        ig = "{0:b}".format(mod32a([ig, g])).rjust(32, "0")
+        ih = "{0:b}".format(mod32a([ih, h])).rjust(32, "0")
+
+    return '{0:06x}'.format(int(ia, 2)) + '{0:06x}'.format(int(ib, 2)) + '{0:06x}'.format(int(ic, 2)) + '{0:06x}'.format(int(id, 2)) + '{0:06x}'.format(int(ie, 2)) + '{0:06x}'.format(int(iif, 2)) + '{0:06x}'.format(int(ig, 2)) + '{0:06x}'.format(int(ih, 2))
 
 
 def sha256(str):
@@ -183,6 +196,12 @@ def sha256(str):
     return compress(prep)
 
 
-val = input("Enter string to be hashed:")
-ans = sha256(val)
-print(ans)
+test = "this is a really really really realyl really long test to show that this works with multiple message blocks"
+
+print("Testing a string with length " + str(len(test)) +
+      " with " + str(len(test) * 8) + " bits")
+
+ans = sha256(test)
+exp = hashlib.sha256(test.encode('utf-8')).hexdigest()
+print("Expected:", exp)
+print("Answer:", ans)
