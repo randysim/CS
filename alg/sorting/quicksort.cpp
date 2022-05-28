@@ -6,6 +6,13 @@
 #include <unordered_map>
 #define ll long long
 
+// Date: 5/28/2022
+// Referenced: https://www.youtube.com/watch?v=SLauY6PpjW4
+// Notes: It is useful to draw out the sorting algorithm and do it step by step (did it in aggie.io)
+// when testing, make sure to test for every edge case
+// C++ arrays suck, vectors are so much more convenient
+// difference between passing * and & into function parameter. vector<int> *v is a pointer you have to dereference, vector<int> &v is the exact reference to it already, it's just more convenient.
+
 using namespace std;
 
 void swap(int &a, int &b)
