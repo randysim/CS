@@ -196,7 +196,7 @@ def sha256(str):
     return compress(prep)
 
 
-test = "this is a really really really realyl really long test to show that this works with multiple message blocks"
+test = "this is a really really really realyl really long test to show that this works with multiple message blocksthis is a really really really realyl really long test to show that this works with multiple message blocksthis is a really really really realyl really long test to show that this works with multiple message blocksthis is a really really really realyl really long test to show that this works with multiple message blocks"
 
 print("Testing a string with length " + str(len(test)) +
       " with " + str(len(test) * 8) + " bits")
