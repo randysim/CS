@@ -1,7 +1,5 @@
 // Date: 5/27/2022
 // Difficulty: 1400
-// Had to look at editorial, apparently you can brute force even O(n^2) as long as the numbers are small enough
-// need to work on basics, practice more constructive algorithm problems
 
 #include <iostream>
 #include <stdlib.h>
