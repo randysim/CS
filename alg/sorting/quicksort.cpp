@@ -13,6 +13,13 @@
 // C++ arrays suck, vectors are so much more convenient
 // difference between passing * and & into function parameter. vector<int> *v is a pointer you have to dereference, vector<int> &v is the exact reference to it already, it's just more convenient.
 
+/*
+The way quicksort works is you chose a "pivot point"
+Then you move everything less than or equal it to the array to the left and
+everything greater than it to the right. Then you perform quicksort recursively on the two subarrays
+until the array is sorted. (when left index is greater than or equal to right index)
+*/
+
 using namespace std;
 
 void swap(int &a, int &b)
